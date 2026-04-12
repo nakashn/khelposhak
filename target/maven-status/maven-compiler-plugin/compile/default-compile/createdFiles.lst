@@ -1,3 +1,4 @@
-com/khel/khelposhak/JakartaRestConfiguration.class
 com/khel/khelposhak/resources/JakartaEE11Resource.class
+com/khel/khelposhak/model/UserModel.class
+com/khel/khelposhak/controller/RegisterServlet.class
 com/khel/khelposhak/databaseConnection/DatabaseConnection.class
