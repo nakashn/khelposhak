@@ -7,22 +7,36 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-/**
- *
- * @author akashadhikari
- */
 public class LoginDao {
 
-    public UserModel loginUser(String email, String password) throws ClassNotFoundException  {
-        String sql = "SELECT * FROM users WHERE email=?";
+    private Connection conn;
+    private boolean isConnectionError = false;
 
-        try (Connection conn = DatabaseConnection.getDbConnection(); 
-                PreparedStatement ps = conn.prepareStatement(sql)) {
+    public LoginDao() {
+        try {
+            conn = DatabaseConnection.getDbConnection();
+        } catch (SQLException | ClassNotFoundException ex) {
+            isConnectionError = true;
+            System.out.println(ex.getMessage());
+        }
+    }
+
+    public UserModel loginUser(String email, String password) {
+
+        try {
+            String sql = "SELECT * FROM users WHERE email=?";
+
+            PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, email);
+
             ResultSet rs = ps.executeQuery();
+
             if (rs.next()) {
+
                 String dbPass = rs.getString("password");
+
                 if (dbPass.equals(password)) {
+
                     UserModel user = new UserModel();
                     user.setUserId(rs.getInt("user_id"));
                     user.setFullName(rs.getString("full_name"));
@@ -30,17 +44,15 @@ public class LoginDao {
                     user.setPhone(rs.getString("phone"));
                     user.setAddress(rs.getString("address"));
                     user.setRole(rs.getString("role"));
-                    
-                    return user;
 
+                    return user;
                 }
             }
 
         } catch (SQLException ex) {
-                System.out.println(ex.getLocalizedMessage());
+            System.out.println(ex.getMessage());
         }
+
         return null;
-
     }
-
 }

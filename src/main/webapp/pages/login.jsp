@@ -1,8 +1,3 @@
-<%-- 
-    Document   : login
-    Created on : Apr 12, 2026, 5:59:22 PM
-    Author     : akashadhikari
---%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
