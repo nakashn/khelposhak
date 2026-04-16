@@ -1,52 +1,76 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
-    <body>
+<head>
+    <title>Manage Products - Khel Poshak</title>
+    <link rel="stylesheet" href="">
+</head>
 
-        <h2>All Products</h2>
+<body>
 
-        <a href="add-product.html">Add New Product</a>
-        <br><br>
+<div class="admin-container">
 
-        <table border="1">
+    <h1>Manage Jerseys</h1>
+
+    <div >
+        <a href="add-product.jsp" class="btn">+ Add New Jersey</a>
+        <a href="dashboard.jsp" class="btn">Back to Dashboard</a>
+    </div>
+
+    <table class="product-table" border="1" cellpadding="8" cellspacing="0">
+
+        <thead>
             <tr>
                 <th>ID</th>
                 <th>Name</th>
                 <th>Team</th>
                 <th>Price</th>
-                <th>Action</th>
+                <th>Stock</th>
+                <th>Actions</th>
             </tr>
+        </thead>
+
+        <tbody>
 
             <tr>
                 <td>1</td>
-                <td>Product A</td>
+                <td>Team Jersey A</td>
                 <td>Team X</td>
-                <td>100</td>
+                <td>$100</td>
+                <td>S:10 M:5 L:2</td>
+
                 <td>
-                    <a href="#">Edit</a> |
-                    <a href="#" onclick="return confirm('Delete?')">Delete</a>
+                    <a href="ProductServlet?action=edit&id=1">Edit</a>
+                    |
+                    <a href="ProductServlet?action=delete&id=1"
+                       onclick="return confirm('Delete this jersey?')">
+                        Delete
+                    </a>
                 </td>
             </tr>
 
             <tr>
                 <td>2</td>
-                <td>Product B</td>
+                <td>Team Jersey B</td>
                 <td>Team Y</td>
-                <td>200</td>
+                <td>$200</td>
+                <td>S:8 M:4 L:3</td>
+
                 <td>
-                    <a href="#">Edit</a> |
-                    <a href="#" onclick="return confirm('Delete?')">Delete</a>
+                    <a href="ProductServlet?action=edit&id=2">Edit</a>
+                    
+                    <a href="ProductServlet?action=delete&id=2"
+                       onclick="return confirm('Delete this jersey?')">
+                        Delete
+                    </a>
                 </td>
             </tr>
 
-        </table>
+        </tbody>
 
-        <br>
-        <a href="dashboard.html">Back to Dashboard</a>
+    </table>
 
-    </body>
+</div>
+
+</body>
 </html>
