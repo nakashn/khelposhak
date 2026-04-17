@@ -9,7 +9,7 @@
 
 <h2>Edit Product</h2>
 
-<form action="ProductServlet" method="post">
+<form action="${pageContext.request.contextPath}/ProdS" method="post">
 
     <input type="hidden" name="action" value="update">
     <input type="hidden" name="productId" value="1">

@@ -21,8 +21,7 @@
             Sizes Available: <input type="text" name="sizesAvailable"><br><br>
             Image URL: <input type="text" name="imageUrl"><br><br>
             Category ID: <input type="number" name="categoryId"><br><br>
-
-
+            
             Stock S: <input type="number" name="stockS"><br><br>
             Stock M: <input type="number" name="stockM"><br><br>
             Stock L: <input type="number" name="stockL"><br><br>

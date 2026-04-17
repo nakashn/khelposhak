@@ -14,7 +14,7 @@
         <h3>Menu</h3>
 
         <ul>
-            <li><a href="ProductServlet?action=List">Manage Products</a></li>
+            <li><a href="ProductServlet?action=list">Manage Products</a></li>
             <li><a href="addproduct.jsp">Add Product Directly</a></li>
             <li><a href="orders.jsp">Manage Orders</a></li>
             <li><a href="users.jsp">Manage Users</a></li>

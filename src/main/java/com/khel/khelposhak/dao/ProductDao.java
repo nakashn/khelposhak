@@ -4,31 +4,33 @@ import com.khel.khelposhak.databaseConnection.DatabaseConnection;
 import com.khel.khelposhak.model.ProductModel;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProductDao {
 
-    private Connection con;
+    private Connection conn;
     private boolean isConnectionError = false;
 
     public ProductDao() {
         try {
-            con = DatabaseConnection.getDbConnection();
-            System.out.println("DB Connection: " + con);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            con = null;
+            conn = DatabaseConnection.getDbConnection();
+        } catch (SQLException | ClassNotFoundException ex) {
+            isConnectionError = true;
+            System.out.println(ex.getMessage());
         }
+
     }
 
     public boolean addProduct(ProductModel p) {
         try {
-            
 
             String sql = "INSERT INTO products(name, description, price, sport, team, player_name,"
                     + " sizes_available, stock_s, stock_m, stock_l, stock_xl, stock_xxl, category_id,"
                     + " image_url) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-            PreparedStatement ps = con.prepareStatement(sql);
+            PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, p.getName());
             ps.setString(2, p.getDescription());
             ps.setDouble(3, p.getPrice());
@@ -59,7 +61,7 @@ public class ProductDao {
             String sql = "UPDATE products SET name=?, description=?, price=?, sport=?, team=?, player_name=?, "
                     + "sizes_available=?, stock_s=?, stock_m=?, stock_l=?, stock_xl=?, stock_xxl=?, category_id=?, "
                     + "image_url=? WHERE product_id=?";
-            PreparedStatement ps = con.prepareStatement(sql);
+            PreparedStatement ps = conn.prepareStatement(sql);
 
             ps.setString(1, p.getName());
             ps.setString(2, p.getDescription());
@@ -86,15 +88,91 @@ public class ProductDao {
     public boolean deleteProduct(int productid) {
         try {
             String sql = "DELETE FROM product WHERE product_id = ?";
-            PreparedStatement ps = con.prepareStatement(sql);
+            PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, productid);
             return ps.executeUpdate() > 0;
 
         } catch (SQLException ex) {
             System.out.println(ex.getLocalizedMessage());
             return false;
-            
+
         }
 
     }
+
+    public List<ProductModel> getAllProduct() {
+
+        List<ProductModel> plist = new ArrayList<>();
+
+        try {
+            String sql = "SELECT * FROM products";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                ProductModel pm = new ProductModel();
+                pm.setProductId(rs.getInt("product_id"));
+                pm.setName(rs.getString("name"));
+                pm.setDescription(rs.getString("description"));
+                pm.setPrice(rs.getDouble("price"));
+                pm.setSport(rs.getString("sport"));
+                pm.setTeam(rs.getString("team"));
+                pm.setPlayerName(rs.getString("player_name"));
+                pm.setSizesAvailable(rs.getString("sizes_available"));
+                pm.setStockS(rs.getInt("stock_s"));
+                pm.setStockM(rs.getInt("stock_m"));
+                pm.setStockL(rs.getInt("stock_l"));
+                pm.setStockXl(rs.getInt("stock_xl"));
+                pm.setStockXxl(rs.getInt("stock_xxl"));
+
+                pm.setCategoryId(rs.getInt("category_id"));
+                pm.setImageUrl(rs.getString("image_url"));
+
+                plist.add(pm);
+
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getLocalizedMessage());
+
+        }
+        return plist;
+
+    }
+
+    public ProductModel getProductById(int id) {
+        ProductModel pm = new ProductModel();
+
+        try {
+            String sql = "SELECT * FROM product WHERE product_id=?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                pm.setProductId(rs.getInt("product_id"));
+                pm.setName(rs.getString("name"));
+                pm.setDescription(rs.getString("description"));
+                pm.setPrice(rs.getDouble("price"));
+                pm.setSport(rs.getString("sport"));
+                pm.setTeam(rs.getString("team"));
+                pm.setPlayerName(rs.getString("player_name"));
+                pm.setSizesAvailable(rs.getString("sizes_available"));
+
+                pm.setStockS(rs.getInt("stock_s"));
+                pm.setStockM(rs.getInt("stock_m"));
+                pm.setStockL(rs.getInt("stock_l"));
+                pm.setStockXl(rs.getInt("stock_xl"));
+                pm.setStockXxl(rs.getInt("stock_xxl"));
+
+                pm.setCategoryId(rs.getInt("category_id"));
+                pm.setImageUrl(rs.getString("image_url"));
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getLocalizedMessage());
+
+        }
+        return pm;
+    }
+
 }

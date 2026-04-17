@@ -13,11 +13,11 @@
     <h1>Manage Jerseys</h1>
 
     <div >
-        <a href="add-product.jsp" class="btn">+ Add New Jersey</a>
+        <a href="addproduct.jsp" class="btn">+ Add New Jersey</a>
         <a href="dashboard.jsp" class="btn">Back to Dashboard</a>
     </div>
 
-    <table class="product-table" border="1" cellpadding="8" cellspacing="0">
+    <table class="product-table" >
 
         <thead>
             <tr>
