@@ -87,7 +87,7 @@ public class ProductDao {
 
     public boolean deleteProduct(int productid) {
         try {
-            String sql = "DELETE FROM product WHERE product_id = ?";
+            String sql = "DELETE FROM products WHERE product_id = ?";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, productid);
             return ps.executeUpdate() > 0;
@@ -144,7 +144,7 @@ public class ProductDao {
         ProductModel pm = new ProductModel();
 
         try {
-            String sql = "SELECT * FROM product WHERE product_id=?";
+            String sql = "SELECT * FROM products WHERE product_id=?";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();

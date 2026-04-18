@@ -1,76 +1,66 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Manage Products - Khel Poshak</title>
-    <link rel="stylesheet" href="">
-</head>
+    <head>
+        <title>Manage Products </title>
+        <link rel="stylesheet" href="">
+    </head>
 
-<body>
+    <body>
 
-<div class="admin-container">
+        <div class="admin-container">
 
-    <h1>Manage Jerseys</h1>
+            <h1>Manage Jerseys</h1>
 
-    <div >
-        <a href="addproduct.jsp" class="btn">+ Add New Jersey</a>
-        <a href="dashboard.jsp" class="btn">Back to Dashboard</a>
-    </div>
+            <div >
+                <a href="pages/addproduct.jsp" class="btn">+ Add New Jersey</a>
+                <a href="dashboard.jsp" class="btn">Back to Dashboard</a>
+            </div>
 
-    <table class="product-table" >
+            <table class="product-table" border="1" >
 
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Team</th>
-                <th>Price</th>
-                <th>Stock</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
+                <thead >
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Team</th>
+                        <th>Price</th>
+                        <th>Stock</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
 
-        <tbody>
+                <tbody>
+                    <c:forEach var="p" items="${products}">
+                        <tr>
+                            <td>${p.productId}</td>
+                            <td>${p.name}</td>
+                            <td>${p.team}</td>
+                            <td>${p.price}</td>
+                            <td>
+                                S:${p.stockS}
+                                M:${p.stockM}
+                                L:${p.stockL}
+                            </td>
+                            <td>
+                                <a href="${pageContext.request.contextPath}/ProdS?action=edit&product_id=${p.productId}">
+                                    Edit
+                                </a>
+                                <a href="${pageContext.request.contextPath}/ProdS?action=delete&product_id=${p.productId}"
+                                   onclick="return confirm('Delete this product?')">
+                                    Delete
+                                </a>
+                            </td>
+                        </tr>
 
-            <tr>
-                <td>1</td>
-                <td>Team Jersey A</td>
-                <td>Team X</td>
-                <td>$100</td>
-                <td>S:10 M:5 L:2</td>
+                    </c:forEach>
 
-                <td>
-                    <a href="ProductServlet?action=edit&id=1">Edit</a>
-                    |
-                    <a href="ProductServlet?action=delete&id=1"
-                       onclick="return confirm('Delete this jersey?')">
-                        Delete
-                    </a>
-                </td>
-            </tr>
+                </tbody>
 
-            <tr>
-                <td>2</td>
-                <td>Team Jersey B</td>
-                <td>Team Y</td>
-                <td>$200</td>
-                <td>S:8 M:4 L:3</td>
+            </table>
 
-                <td>
-                    <a href="ProductServlet?action=edit&id=2">Edit</a>
-                    
-                    <a href="ProductServlet?action=delete&id=2"
-                       onclick="return confirm('Delete this jersey?')">
-                        Delete
-                    </a>
-                </td>
-            </tr>
+        </div>
 
-        </tbody>
-
-    </table>
-
-</div>
-
-</body>
+    </body>
 </html>

@@ -29,10 +29,9 @@
             Stock XXL: <input type="number" name="stockXxl"><br><br>
 
             <button type="submit">Add Product</button>
-
         </form>
 
         <br>
-        <a href="dashboard.html">Back</a>
+        <a href="Admindashboard.jsp">Back</a>
     </body>
 </html>

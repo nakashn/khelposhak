@@ -3,7 +3,6 @@ package com.khel.khelposhak.controller;
 import com.khel.khelposhak.dao.LoginDao;
 import com.khel.khelposhak.model.UserModel;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;

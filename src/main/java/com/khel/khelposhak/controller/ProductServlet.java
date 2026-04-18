@@ -10,10 +10,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
 
-/**
- *
- * @author akashadhikari
- */
 @WebServlet(name = "ProductServlet", urlPatterns = {"/ProdS"})
 public class ProductServlet extends HttpServlet {
 
@@ -45,6 +41,8 @@ public class ProductServlet extends HttpServlet {
 
         } else if ("update".equals(action)) {
             ProductModel product = new ProductModel();
+            product.setProductId(Integer.parseInt(request.getParameter("productId")));
+
             product.setName(request.getParameter("name"));
             product.setDescription(request.getParameter("description"));
             product.setPrice(Double.parseDouble(request.getParameter("price")));
@@ -63,6 +61,8 @@ public class ProductServlet extends HttpServlet {
             product.setImageUrl(request.getParameter("imageUrl"));
             ProductDao pdao = new ProductDao();
             pdao.updateProduct(product);
+            response.sendRedirect("ProdS?action=list");
+
         }
 
     }
@@ -76,18 +76,17 @@ public class ProductServlet extends HttpServlet {
         if ("delete".equals(action)) {
             int id = Integer.parseInt(request.getParameter("product_id"));
             pdao.deleteProduct(id);
-            response.sendRedirect("ProductServlet?action=list");
+            response.sendRedirect("ProdS?action=list");
 
         } else if ("edit".equals(action)) {
             int id = Integer.parseInt(request.getParameter("product_id"));
             ProductModel pm = pdao.getProductById(id);
             request.setAttribute("product", pm);
-            request.getRequestDispatcher("products.jsp").forward(request, response);
-
-        }else{
+            request.getRequestDispatcher("/pages/editproduct.jsp").forward(request, response);
+        } else {
             List<ProductModel> products = pdao.getAllProduct();
-            request.setAttribute("products", pdao);
-            request.getRequestDispatcher("products.jsp").forward(request,response);
+            request.setAttribute("products", products);
+            request.getRequestDispatcher("/pages/products.jsp").forward(request, response);
         }
 
     }
