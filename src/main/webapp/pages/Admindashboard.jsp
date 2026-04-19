@@ -17,7 +17,7 @@
             <li><a href="${pageContext.request.contextPath}/ProdS?action=list">
                     Manage Products
                 </a></li>
-            <li><a href="addproduct.jsp">Add Product Directly</a></li>
+            <li><a href="pages/addproduct.jsp">Add Product Directly</a></li>
             <li><a href="orders.jsp">Manage Orders</a></li>
             <li><a href="users.jsp">Manage Users</a></li>
             <li><a href="">Logout</a></li>

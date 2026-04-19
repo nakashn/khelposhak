@@ -15,7 +15,7 @@
 
             <div >
                 <a href="pages/addproduct.jsp" class="btn">+ Add New Jersey</a>
-                <a href="dashboard.jsp" class="btn">Back to Dashboard</a>
+                <a href="pages/Admindashboard.jsp" class="btn">Back to Dashboard</a>
             </div>
 
             <table class="product-table" border="1" >

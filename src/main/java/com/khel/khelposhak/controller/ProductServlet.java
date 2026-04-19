@@ -36,8 +36,8 @@ public class ProductServlet extends HttpServlet {
             product.setCategoryId(Integer.parseInt(request.getParameter("categoryId")));
             product.setImageUrl(request.getParameter("imageUrl"));
             ProductDao pdao = new ProductDao();
-
             pdao.addProduct(product);
+            request.getRequestDispatcher("/pages/Admindashboard.jsp").forward(request, response);
 
         } else if ("update".equals(action)) {
             ProductModel product = new ProductModel();
