@@ -1,6 +1,8 @@
 package com.khel.khelposhak.controller;
 
+import com.khel.khelposhak.dao.CategoryDao;
 import com.khel.khelposhak.dao.ProductDao;
+import com.khel.khelposhak.model.CategoryModel;
 import com.khel.khelposhak.model.ProductModel;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
@@ -32,8 +34,12 @@ public class ProductServlet extends HttpServlet {
             product.setStockL(Integer.parseInt(request.getParameter("stockL")));
             product.setStockXl(Integer.parseInt(request.getParameter("stockXl")));
             product.setStockXxl(Integer.parseInt(request.getParameter("stockXxl")));
-
-            product.setCategoryId(Integer.parseInt(request.getParameter("categoryId")));
+            String cid = request.getParameter("categoryId");
+            try {
+                product.setCategoryId(Integer.parseInt(cid));
+            } catch (Exception e) {
+                product.setCategoryId(0); 
+            }
             product.setImageUrl(request.getParameter("imageUrl"));
             ProductDao pdao = new ProductDao();
             pdao.addProduct(product);
@@ -83,6 +89,12 @@ public class ProductServlet extends HttpServlet {
             ProductModel pm = pdao.getProductById(id);
             request.setAttribute("product", pm);
             request.getRequestDispatcher("/pages/editproduct.jsp").forward(request, response);
+
+        } else if ("add".equals(action)) {
+            CategoryDao cdao = new CategoryDao();
+            List<CategoryModel> categories = cdao.getAllCategories();
+            request.setAttribute("categories", categories);
+            request.getRequestDispatcher("/pages/addproduct.jsp").forward(request, response);
         } else {
             List<ProductModel> products = pdao.getAllProduct();
             request.setAttribute("products", products);

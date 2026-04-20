@@ -1,10 +1,12 @@
 /Users/akashadhikari/NetBeansProjects/KhelPoshak/src/main/java/com/khel/khelposhak/controller/LoginServlet.java
 /Users/akashadhikari/NetBeansProjects/KhelPoshak/src/main/java/com/khel/khelposhak/controller/ProductServlet.java
 /Users/akashadhikari/NetBeansProjects/KhelPoshak/src/main/java/com/khel/khelposhak/controller/RegisterServlet.java
+/Users/akashadhikari/NetBeansProjects/KhelPoshak/src/main/java/com/khel/khelposhak/dao/CategoryDao.java
 /Users/akashadhikari/NetBeansProjects/KhelPoshak/src/main/java/com/khel/khelposhak/dao/LoginDao.java
 /Users/akashadhikari/NetBeansProjects/KhelPoshak/src/main/java/com/khel/khelposhak/dao/ProductDao.java
 /Users/akashadhikari/NetBeansProjects/KhelPoshak/src/main/java/com/khel/khelposhak/dao/RegisterDao.java
 /Users/akashadhikari/NetBeansProjects/KhelPoshak/src/main/java/com/khel/khelposhak/databaseConnection/DatabaseConnection.java
+/Users/akashadhikari/NetBeansProjects/KhelPoshak/src/main/java/com/khel/khelposhak/model/CategoryModel.java
 /Users/akashadhikari/NetBeansProjects/KhelPoshak/src/main/java/com/khel/khelposhak/model/ProductModel.java
 /Users/akashadhikari/NetBeansProjects/KhelPoshak/src/main/java/com/khel/khelposhak/model/UserModel.java
 /Users/akashadhikari/NetBeansProjects/KhelPoshak/src/main/java/com/khel/khelposhak/resources/JakartaEE11Resource.java
