@@ -14,7 +14,7 @@
             <h1>Manage Jerseys</h1>
 
             <div >
-                <a href="pages/addproduct.jsp" class="btn">+ Add New Jersey</a>
+                <a href="${pageContext.request.contextPath}/ProdS?action=add" class="btn">+ Add New Jersey</a>
                 <a href="pages/Admindashboard.jsp" class="btn">Back to Dashboard</a>
             </div>
 

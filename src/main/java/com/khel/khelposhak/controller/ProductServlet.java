@@ -28,6 +28,7 @@ public class ProductServlet extends HttpServlet {
             product.setTeam(request.getParameter("team"));
             product.setPlayerName(request.getParameter("playerName"));
             product.setSizesAvailable(request.getParameter("sizesAvailable"));
+            product.setCategoryId(Integer.parseInt(request.getParameter("categoryId")));
 
             product.setStockS(Integer.parseInt(request.getParameter("stockS")));
             product.setStockM(Integer.parseInt(request.getParameter("stockM")));
@@ -35,11 +36,8 @@ public class ProductServlet extends HttpServlet {
             product.setStockXl(Integer.parseInt(request.getParameter("stockXl")));
             product.setStockXxl(Integer.parseInt(request.getParameter("stockXxl")));
             String cid = request.getParameter("categoryId");
-            try {
-                product.setCategoryId(Integer.parseInt(cid));
-            } catch (Exception e) {
-                product.setCategoryId(0); 
-            }
+            String catId = request.getParameter("categoryId");
+
             product.setImageUrl(request.getParameter("imageUrl"));
             ProductDao pdao = new ProductDao();
             pdao.addProduct(product);

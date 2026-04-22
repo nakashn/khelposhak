@@ -10,34 +10,33 @@
 
         <h2>Add Product</h2>
 
-        <a href="${pageContext.request.contextPath}/ProdS">Add Product</a>
-        <input type="hidden" name="action" value="add">
-        Name: <input type="text" name="name"><br><br>
-        Description: <input type="text" name="description"><br><br>
-        Price: <input type="number" name="price"><br><br>
-        Team: <input type="text" name="team"><br><br>
-        Sport: <input type="text" name="sport"><br><br>
-        Player Name: <input type="text" name="playerName"><br><br>
-        Sizes Available: <input type="text" name="sizesAvailable"><br><br>
-        Image URL: <input type="text" name="imageUrl"><br><br>
-        Category: <select name="categoryId" required>
-            <option value="">Select Category</option>
-            <c:forEach items="${categories}" var="ca">
+        <form action="${pageContext.request.contextPath}/ProdS?action=add" method="post">  
+            Name: <input type="text" name="name"><br><br>
+            Description: <input type="text" name="description"><br><br>
+            Price: <input type="number" name="price"><br><br>
+            Team: <input type="text" name="team"><br><br>
+            Sport: <input type="text" name="sport"><br><br>
+            Player Name: <input type="text" name="playerName"><br><br>
+            Sizes Available: <input type="text" name="sizesAvailable"><br><br>
+            Image URL: <input type="text" name="imageUrl"><br><br>
+            Category: <select name="categoryId" required>
+                <option value="">Select Category</option>
+                <c:forEach items="${categories}" var="ca">
 
-                <option value="${ca.categoryId}">${ca.name}</option>
-            </c:forEach>
-        </select>
-        <br><br>
-        Stock S: <input type="number" name="stockS"><br><br>
-        Stock M: <input type="number" name="stockM"><br><br>
-        Stock L: <input type="number" name="stockL"><br><br>
-        Stock XL: <input type="number" name="stockXl"><br><br>
-        Stock XXL: <input type="number" name="stockXxl"><br><br>
+                    <option value="${ca.categoryId}">${ca.name}</option>
+                </c:forEach>
+            </select>
+            <br><br>
+            Stock S: <input type="number" name="stockS"><br><br>
+            Stock M: <input type="number" name="stockM"><br><br>
+            Stock L: <input type="number" name="stockL"><br><br>
+            Stock XL: <input type="number" name="stockXl"><br><br>
+            Stock XXL: <input type="number" name="stockXxl"><br><br>
 
-        <button type="submit">Add Product</button>
-    </form>
+            <button type="submit">Add Product</button>
+        </form>
 
-    <br>
-    <a href="Admindashboard.jsp">Back</a>
-</body>
+        <br>
+        <a href="Admindashboard.jsp">Back</a>
+    </body>
 </html>

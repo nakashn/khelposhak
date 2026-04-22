@@ -1,10 +1,12 @@
 com/khel/khelposhak/resources/JakartaEE11Resource.class
 com/khel/khelposhak/dao/LoginDao.class
 com/khel/khelposhak/model/ProductModel.class
+com/khel/khelposhak/model/CategoryModel.class
 com/khel/khelposhak/controller/LoginServlet.class
 com/khel/khelposhak/model/UserModel.class
 com/khel/khelposhak/databaseConnection/DatabaseConnection.class
 com/khel/khelposhak/dao/ProductDao.class
+com/khel/khelposhak/dao/CategoryDao.class
 com/khel/khelposhak/dao/RegisterDao.class
 com/khel/khelposhak/controller/ProductServlet.class
 com/khel/khelposhak/controller/RegisterServlet.class
