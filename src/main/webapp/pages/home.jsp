@@ -1,62 +1,88 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <html>
 <head>
-    <title>KhelPoshak-Shop</title>
+    <title>Khel Poshak - Home</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 </head>
+
 <body>
 
-<!-- Navbar -->
-<div>
-    <h2>🛒 E-Shop</h2>
-    <a href="#">Home</a> |
-    <a href="#">About</a> |
-    <a href="#">Products</a> |
-    <a href="#">Contact</a> |
-    <button>Login</button>
+<!-- NAVBAR -->
+<div class="navbar">
+    <h2>Khel Poshak</h2>
+
+    <a href="${pageContext.request.contextPath}/homeS">Home</a>
+    <a href="#">About</a>
+    <a href="#">Contact</a>
+    <a href="${pageContext.request.contextPath}/pages/login.jsp">Login</a>
+    <a href="${pageContext.request.contextPath}/pages/register.jsp">Register</a>
 </div>
 
 <hr>
 
-<!-- Search Section -->
-<div>
-    <input type="text" placeholder="Search products..." size="100">
-</div>
+<!-- SEARCH -->
+<form action="${pageContext.request.contextPath}/homeS" method="get">
+    <input type="text" name="search" placeholder="Search products." value="${param.search}">
+    <button type="submit">Search</button>
+</form>
 
-<br>
+<!-- FILTER -->
+<form action="${pageContext.request.contextPath}/homeS" method="get">
 
-<!-- Filter Section -->
-<div>
-    <select>
-        <option>Category</option>
+    <select name="category">
+        <option value="">All Categories</option>
+
+        <c:forEach var="cat" items="${categories}">
+            <option value="${cat.categoryId}">
+                ${cat.name}
+            </option>
+        </c:forEach>
     </select>
 
-    <select>
-        <option>Brand</option>
+    <select name="sort">
+        <option value="">Sort By</option>
+        <option value="price">Highest Price</option>
     </select>
 
-    <select>
-        <option>Sort By</option>
-    </select>
-</div>
+    <button type="submit">Filter</button>
+</form>
 
 <hr>
 
-<!-- Product Section -->
-<div>
+<!-- PRODUCTS -->
+<div class="product-container">
 
-    <!-- Product Card -->
-    <div>
-        <img src="" alt="Product Image" width="200">
-        <h3>Product Name</h3>
-        <p>Brand</p>
-        <p>Rating</p>
-        <p>Price</p>
-        <p>Stock</p>
-        <button>Add to Cart</button>
+    <c:if test="${not empty searchKeyword}">
+        <p>Search result: ${searchKeyword}</p>
+    </c:if>
+
+    <c:if test="${not empty sortType}">
+        <p>Sorted by: ${sortType}</p>
+    </c:if>
+
+    <div class="product-grid">
+
+        <c:forEach var="p" items="${products}">
+            <div class="product-card">
+
+                <h3>${p.name}</h3>
+                <p>${p.team} | ${p.sport}</p>
+                <p>Price: $${p.price}</p>
+
+                <a href="${pageContext.request.contextPath}/pages/login.jsp">
+                    Login to Buy
+                </a>
+
+            </div>
+        </c:forEach>
+
     </div>
 
-    <!-- Repeat this block later dynamically -->
+    <c:if test="${empty products}">
+        <p>No products found</p>
+    </c:if>
 
 </div>
 

@@ -174,5 +174,135 @@ public class ProductDao {
         }
         return pm;
     }
+    
+    
+    //-------homepage garna lahysi add gareko-----
+    //home page ko lagi product search garnako lagi
+    
+    public List<ProductModel> searchProducts(String keyword) {
+    List<ProductModel> plist = new ArrayList<>();
+
+    try {
+        String sql = "SELECT * FROM products WHERE name LIKE ? OR team LIKE ?";
+        PreparedStatement ps = conn.prepareStatement(sql);
+        String searchPattern = "%" + keyword + "%";
+        ps.setString(1, searchPattern);
+        ps.setString(2, searchPattern);
+
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            ProductModel pm = new ProductModel();
+            pm.setProductId(rs.getInt("product_id"));
+            pm.setName(rs.getString("name"));
+            pm.setDescription(rs.getString("description"));
+            pm.setPrice(rs.getDouble("price"));
+            pm.setSport(rs.getString("sport"));
+            pm.setTeam(rs.getString("team"));
+            pm.setPlayerName(rs.getString("player_name"));
+            pm.setSizesAvailable(rs.getString("sizes_available"));
+
+            pm.setStockS(rs.getInt("stock_s"));
+            pm.setStockM(rs.getInt("stock_m"));
+            pm.setStockL(rs.getInt("stock_l"));
+            pm.setStockXl(rs.getInt("stock_xl"));
+            pm.setStockXxl(rs.getInt("stock_xxl"));
+
+            pm.setCategoryId(rs.getInt("category_id"));
+            pm.setImageUrl(rs.getString("image_url"));
+
+            plist.add(pm);
+        }
+
+    } catch (SQLException ex) {
+        System.out.println(ex.getLocalizedMessage());
+    }
+
+    return plist;
+}
+    
+    public List<ProductModel> getProductOfMaxPrice() {
+    List<ProductModel> plist = new ArrayList<>();
+
+    try {
+        String sql = "SELECT * FROM products ORDER BY price DESC";
+        PreparedStatement ps = conn.prepareStatement(sql);
+
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            ProductModel pm = new ProductModel();
+            pm.setProductId(rs.getInt("product_id"));
+            pm.setName(rs.getString("name"));
+            pm.setDescription(rs.getString("description"));
+            pm.setPrice(rs.getDouble("price"));
+            pm.setSport(rs.getString("sport"));
+            pm.setTeam(rs.getString("team"));
+            pm.setPlayerName(rs.getString("player_name"));
+            pm.setSizesAvailable(rs.getString("sizes_available"));
+
+            pm.setStockS(rs.getInt("stock_s"));
+            pm.setStockM(rs.getInt("stock_m"));
+            pm.setStockL(rs.getInt("stock_l"));
+            pm.setStockXl(rs.getInt("stock_xl"));
+            pm.setStockXxl(rs.getInt("stock_xxl"));
+
+            pm.setCategoryId(rs.getInt("category_id"));
+            pm.setImageUrl(rs.getString("image_url"));
+
+            plist.add(pm);
+        }
+
+    } catch (SQLException ex) {
+        System.out.println(ex.getLocalizedMessage());
+    }
+
+    return plist;
+}
+    //category use gary product khojna ko lagi
+    public List<ProductModel> getProductsByCategory(int categoryId) {
+
+    List<ProductModel> plist = new ArrayList<>();
+
+    try {
+        String sql = "SELECT * FROM products WHERE category_id = ?";
+        PreparedStatement ps = conn.prepareStatement(sql);
+
+        ps.setInt(1, categoryId);
+
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+
+            ProductModel pm = new ProductModel();
+
+            pm.setProductId(rs.getInt("product_id"));
+            pm.setName(rs.getString("name"));
+            pm.setDescription(rs.getString("description"));
+            pm.setPrice(rs.getDouble("price"));
+            pm.setSport(rs.getString("sport"));
+            pm.setTeam(rs.getString("team"));
+            pm.setPlayerName(rs.getString("player_name"));
+            pm.setSizesAvailable(rs.getString("sizes_available"));
+
+            pm.setStockS(rs.getInt("stock_s"));
+            pm.setStockM(rs.getInt("stock_m"));
+            pm.setStockL(rs.getInt("stock_l"));
+            pm.setStockXl(rs.getInt("stock_xl"));
+            pm.setStockXxl(rs.getInt("stock_xxl"));
+
+            pm.setCategoryId(rs.getInt("category_id"));
+            pm.setImageUrl(rs.getString("image_url"));
+
+            plist.add(pm);
+        }
+
+    } catch (SQLException ex) {
+        System.out.println(ex.getMessage());
+    }
+
+    return plist;
+}
+
 
 }
