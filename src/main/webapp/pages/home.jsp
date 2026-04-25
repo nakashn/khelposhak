@@ -22,13 +22,14 @@
 
 <hr>
 
-<!-- SEARCH -->
+<!--for searching different saman-->
+
 <form action="${pageContext.request.contextPath}/homeS" method="get">
     <input type="text" name="search" placeholder="Search products." value="${param.search}">
     <button type="submit">Search</button>
 </form>
+<!--    category ko lagi drop down -->
 
-<!-- FILTER -->
 <form action="${pageContext.request.contextPath}/homeS" method="get">
 
     <select name="category">
@@ -40,7 +41,7 @@
             </option>
         </c:forEach>
     </select>
-
+<!--price aanusar product sor t garni-->
     <select name="sort">
         <option value="">Sort By</option>
         <option value="price">Highest Price</option>
@@ -50,18 +51,8 @@
 </form>
 
 <hr>
-
-<!-- PRODUCTS -->
+<!--product details ko lagi banako-->
 <div class="product-container">
-
-    <c:if test="${not empty searchKeyword}">
-        <p>Search result: ${searchKeyword}</p>
-    </c:if>
-
-    <c:if test="${not empty sortType}">
-        <p>Sorted by: ${sortType}</p>
-    </c:if>
-
     <div class="product-grid">
 
         <c:forEach var="p" items="${products}">
@@ -79,10 +70,6 @@
         </c:forEach>
 
     </div>
-
-    <c:if test="${empty products}">
-        <p>No products found</p>
-    </c:if>
 
 </div>
 
