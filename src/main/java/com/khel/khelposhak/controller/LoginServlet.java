@@ -2,34 +2,57 @@ package com.khel.khelposhak.controller;
 
 import com.khel.khelposhak.dao.LoginDao;
 import com.khel.khelposhak.model.UserModel;
-import java.io.IOException;
-import jakarta.servlet.ServletException;
+import com.khel.khelposhak.utils.PasswordUtil;
+import com.khel.khelposhak.utils.SessionUtil;
+
+import jakarta.servlet.*;
+import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+
+import java.io.IOException;
 
 @WebServlet(name = "Login", urlPatterns = {"/LogServ"})
 public class LoginServlet extends HttpServlet {
 
-    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         String email = request.getParameter("email");
         String password = request.getParameter("password");
+
         LoginDao logDao = new LoginDao();
-        UserModel userModel = logDao.loginUser(email, password);
-        String cp = request.getContextPath();
-        if (userModel != null) {
-            
-            if (userModel.isAdmin()) {
-                response.sendRedirect(cp + "/pages/Admindashboard.jsp");
+        UserModel userModel = logDao.getUserByEmail(email);
+
+        // If user not found
+        if (userModel == null) {
+            request.setAttribute("error", "invalid email or password");
+            request.getRequestDispatcher("/pages/login.jsp").forward(request, response);
+            return;
+        }
+
+        String storedPassword = userModel.getPassword();
+        boolean matched;
+
+        // Admin: plain text | Others: BCrypt
+        if (email.equals("admin@gmail.com")) {
+            matched = password.equals(storedPassword);
+        } else {
+            matched = PasswordUtil.checkPassword(password, storedPassword);
+        }
+
+        // If login success
+        if (matched) {
+            SessionUtil.setAttribute(request, "user", userModel);
+
+            if ("ADMIN".equals(userModel.getRole())) {
+                response.sendRedirect(request.getContextPath() + "/pages/Admindashboard.jsp");
             } else {
-                response.sendRedirect(cp + "/pages/home.jsp");
+                response.sendRedirect(request.getContextPath() + "/pages/home.jsp");
             }
         } else {
+            // Wrong password
             request.setAttribute("error", "incorrect id or pw");
-            request.getRequestDispatcher("/pages/login.jsp").forward(request,response);
+            request.getRequestDispatcher("/pages/login.jsp").forward(request, response);
         }
     }
 }

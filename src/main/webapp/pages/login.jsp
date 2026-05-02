@@ -7,7 +7,8 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h2>loginjsp</h2>
+        <h2>login</h2>
+         <p style="color:red">${error}</p>
         <form action="${pageContext.request.contextPath}/LogServ" method="post">  
             <input type="email" name="email" placeholder="Email" >
             <input type="password" name="password" placeholder="Password" >

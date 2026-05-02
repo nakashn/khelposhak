@@ -18,9 +18,21 @@ public class RegisterDao {
         }
     }
 
-    public boolean registerUser(UserModel user) {
+       public int registerUser(UserModel user) {
 
         try {
+          
+            String checkSql = "SELECT email FROM users WHERE LOWER(email)=LOWER(?)";
+            PreparedStatement checkPs = conn.prepareStatement(checkSql);
+            checkPs.setString(1, user.getEmail());
+
+            ResultSet rs = checkPs.executeQuery();
+
+            if (rs.next()) {
+                return 2; // email exist garx pahelai 
+            }
+
+         
             String sql = "INSERT INTO users (full_name, email, password, phone, address) VALUES (?,?,?,?,?)";
 
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -31,11 +43,14 @@ public class RegisterDao {
             ps.setString(4, user.getPhone());
             ps.setString(5, user.getAddress());
 
-            return ps.executeUpdate() > 0;
+            int result = ps.executeUpdate();
+
+            return result; // thikx vane 1 din x value insert gardha else 0 fail
+            
 
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
-            return false;
+            return 3; // conn error
         }
     }
 }

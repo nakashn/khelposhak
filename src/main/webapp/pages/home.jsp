@@ -9,17 +9,29 @@
 
 <body>
 
-<!-- NAVBAR -->
 <div class="navbar">
+
     <h2>Khel Poshak</h2>
 
     <a href="${pageContext.request.contextPath}/homeS">Home</a>
     <a href="#">About</a>
     <a href="#">Contact</a>
-    <a href="${pageContext.request.contextPath}/pages/login.jsp">Login</a>
-    <a href="${pageContext.request.contextPath}/pages/register.jsp">Register</a>
-</div>
 
+    <c:if test="${not empty sessionScope.user}">
+
+        Welcome, <c:out value="${sessionScope.user.fullName}"/>
+        <a href="${pageContext.request.contextPath}/LogoutS">Logout</a>
+
+    </c:if>
+
+    <c:if test="${empty sessionScope.user}">
+
+        <a href="${pageContext.request.contextPath}/pages/login.jsp">Login</a>
+        <a href="${pageContext.request.contextPath}/pages/register.jsp">Register</a>
+
+    </c:if>
+
+</div>
 <hr>
 
 <!--for searching different saman-->

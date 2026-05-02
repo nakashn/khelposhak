@@ -44,15 +44,40 @@ public class LoginDao {
                     user.setPhone(rs.getString("phone"));
                     user.setAddress(rs.getString("address"));
                     user.setRole(rs.getString("role"));
+                    user.setPassword(dbPass); 
 
                     return user;
                 }
-            }
+            } 
 
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
 
+        return null;
+    }
+    
+        public UserModel getUserByEmail(String email) {
+        try {
+            String sql = "SELECT * FROM users WHERE email=?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, email);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                UserModel user = new UserModel();
+                user.setUserId(rs.getInt("user_id"));
+                user.setFullName(rs.getString("full_name"));
+                user.setEmail(rs.getString("email"));
+                user.setPassword(rs.getString("password"));
+                user.setPhone(rs.getString("phone"));
+                user.setAddress(rs.getString("address"));
+                user.setRole(rs.getString("role"));
+                return user;
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
         return null;
     }
 }

@@ -8,7 +8,7 @@
     <body>
         <h1>Admin Dashboard</h1>
 
-        <p>Welcome</p>
+        <p>Welcome${sessionScope.user.fullName}</p>
         <hr>
 
         <h3>Menu</h3>
@@ -21,7 +21,7 @@
             <li><a href="${pageContext.request.contextPath}/ProdS?action=add">Add Product</a></li>
             <li><a href="orders.jsp">Manage Orders</a></li>
             <li><a href="users.jsp">Manage Users</a></li>
-            <li><a href="">Logout</a></li>
+            <li><a href="${pageContext.request.contextPath}/LogoutS">Logout</a></li>
         </ul>
     </body>
 </html>
