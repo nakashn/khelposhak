@@ -80,6 +80,24 @@
 
             </div>
         </c:forEach>
+        <form action="${pageContext.request.contextPath}/CartS" method="post">
+    <input type="hidden" name="action" value="add">
+    <input type="hidden" name="product_id" value="${p.productId}">
+    
+    Size: 
+    <select name="size" required>
+        <option value="">Select</option>
+        <option value="S">S</option>
+        <option value="M">M</option>
+        <option value="L">L</option>
+        <option value="XL">XL</option>
+        <option value="XXL">XXL</option>
+    </select>
+    
+    Qty: <input type="number" name="quantity" value="1" min="1" style="width:50px;">
+    
+    <button type="submit">Add to Cart</button>
+</form>
 
     </div>
 

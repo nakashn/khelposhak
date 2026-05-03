@@ -23,7 +23,6 @@ public class LoginServlet extends HttpServlet {
         LoginDao logDao = new LoginDao();
         UserModel userModel = logDao.getUserByEmail(email);
 
-        // If user not found
         if (userModel == null) {
             request.setAttribute("error", "invalid email or password");
             request.getRequestDispatcher("/pages/login.jsp").forward(request, response);
@@ -31,16 +30,9 @@ public class LoginServlet extends HttpServlet {
         }
 
         String storedPassword = userModel.getPassword();
-        boolean matched;
-
-        // Admin: plain text | Others: BCrypt
-        if (email.equals("admin@gmail.com")) {
-            matched = password.equals(storedPassword);
-        } else {
-            matched = PasswordUtil.checkPassword(password, storedPassword);
-        }
-
-        // If login success
+        
+        boolean matched = PasswordUtil.checkPassword(password, storedPassword);
+        //when bycrpt pw is correct 
         if (matched) {
             SessionUtil.setAttribute(request, "user", userModel);
 
@@ -50,7 +42,7 @@ public class LoginServlet extends HttpServlet {
                 response.sendRedirect(request.getContextPath() + "/pages/home.jsp");
             }
         } else {
-            // Wrong password
+            //pw wrong vayo vane
             request.setAttribute("error", "incorrect id or pw");
             request.getRequestDispatcher("/pages/login.jsp").forward(request, response);
         }

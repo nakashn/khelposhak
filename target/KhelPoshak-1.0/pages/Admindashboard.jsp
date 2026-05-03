@@ -10,7 +10,6 @@
 
         <p>Welcome${sessionScope.user.fullName}</p>
         <hr>
-
         <h3>Menu</h3>
 
         <ul>
