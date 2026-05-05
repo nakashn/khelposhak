@@ -303,6 +303,42 @@ public class ProductDao {
 
     return plist;
 }
+    
+    public List<ProductModel> getFeaturedProducts() {
+    List<ProductModel> featuredProducts = new ArrayList<>();
+    
+    try {
+        // Get top 4 featured products (you can modify this query)
+        String sql = "SELECT * FROM products ORDER BY product_id DESC LIMIT 4";
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+        
+        while (rs.next()) {
+            ProductModel pm = new ProductModel();
+            pm.setProductId(rs.getInt("product_id"));
+            pm.setName(rs.getString("name"));
+            pm.setDescription(rs.getString("description"));
+            pm.setPrice(rs.getDouble("price"));
+            pm.setSport(rs.getString("sport"));
+            pm.setTeam(rs.getString("team"));
+            pm.setPlayerName(rs.getString("player_name"));  // Important!
+            pm.setSizesAvailable(rs.getString("sizes_available"));
+            pm.setStockS(rs.getInt("stock_s"));
+            pm.setStockM(rs.getInt("stock_m"));
+            pm.setStockL(rs.getInt("stock_l"));
+            pm.setStockXl(rs.getInt("stock_xl"));
+            pm.setStockXxl(rs.getInt("stock_xxl"));
+            pm.setCategoryId(rs.getInt("category_id"));
+            pm.setImageUrl(rs.getString("image_url"));
+            featuredProducts.add(pm);
+        }
+        
+    } catch (SQLException ex) {
+        System.out.println("Error getting featured products: " + ex.getMessage());
+    }
+    
+    return featuredProducts;
+}
 
 
 }

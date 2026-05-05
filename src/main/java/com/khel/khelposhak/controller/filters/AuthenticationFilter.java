@@ -25,45 +25,52 @@ public class AuthenticationFilter implements Filter {
     private static final String REGISTER_PAGE = "/pages/register.jsp";
     private static final String HOME = "/homeS";
     private static final String HOME_PAGE = "/pages/home.jsp";
+    private static final String CART = "/CartS";
+    private static final String CART_PAGE = "/pages/cart.jsp";
+    // Add these constants
+    private static final String PRODUCTS = "/products";
+    private static final String PRODUCTS_PAGE = "/pages/allProducts.jsp";
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
     }
 
-   @Override
-public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-        throws IOException, ServletException {
+    @Override
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+            throws IOException, ServletException {
 
-    HttpServletRequest req = (HttpServletRequest) request;
-    HttpServletResponse res = (HttpServletResponse) response;
+        HttpServletRequest req = (HttpServletRequest) request;
+        HttpServletResponse res = (HttpServletResponse) response;
 
-    String uri = req.getRequestURI();
-    boolean isLoggedIn = SessionUtil.getAttribute(req, "user") != null;
+        String uri = req.getRequestURI();
+        boolean isLoggedIn = SessionUtil.getAttribute(req, "user") != null;
 
-    boolean isHomePage = uri.endsWith(HOME) || uri.endsWith(HOME_PAGE);
-    boolean isAuthPage = uri.endsWith(LOGIN) || uri.endsWith(LOGIN_PAGE)
-            || uri.endsWith(REGISTER) || uri.endsWith(REGISTER_PAGE);
+        boolean isHomePage = uri.endsWith(HOME) || uri.endsWith(HOME_PAGE);
+        boolean isAuthPage = uri.endsWith(LOGIN) || uri.endsWith(LOGIN_PAGE)
+                || uri.endsWith(REGISTER) || uri.endsWith(REGISTER_PAGE);
+        boolean isCartPage = uri.endsWith(CART) || uri.endsWith(CART_PAGE);
+        boolean isProductsPage = uri.endsWith(PRODUCTS) || uri.endsWith(PRODUCTS_PAGE);  
 
-    String context = req.getContextPath();
+        String context = req.getContextPath();
 
-    // If not logged in
-    if (!isLoggedIn) {
-        if (isAuthPage || isHomePage) {
-            chain.doFilter(request, response);
-        } else {
-            res.sendRedirect(context + LOGIN_PAGE);
+        // If not logged in
+        if (!isLoggedIn) {
+            if (isAuthPage || isHomePage || isProductsPage || isCartPage) {  // Add isProductsPage
+                chain.doFilter(request, response);
+            } else {
+                res.sendRedirect(context + LOGIN_PAGE);
+            }
+            return;
         }
-        return;
-    }
 
-    // If logged in
-    if (isAuthPage) {
-        res.sendRedirect(context + HOME_PAGE);
-        return;
-    }
+        // If logged in
+        if (isAuthPage) {
+            res.sendRedirect(context + HOME_PAGE);
+            return;
+        }
 
-    chain.doFilter(request, response);
-}
+        chain.doFilter(request, response);
+    }
 
     @Override
     public void destroy() {

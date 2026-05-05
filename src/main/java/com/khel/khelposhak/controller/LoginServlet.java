@@ -30,21 +30,26 @@ public class LoginServlet extends HttpServlet {
         }
 
         String storedPassword = userModel.getPassword();
-        
+
         boolean matched = PasswordUtil.checkPassword(password, storedPassword);
         //when bycrpt pw is correct 
         if (matched) {
             SessionUtil.setAttribute(request, "user", userModel);
 
+            HttpSession session = request.getSession();
+            String redirectAfterLogin = (String) session.getAttribute("redirectAfterLogin");
+
+            if (redirectAfterLogin != null && !redirectAfterLogin.isEmpty()) {
+                session.removeAttribute("redirectAfterLogin");
+                response.sendRedirect(request.getContextPath() + redirectAfterLogin);
+                return;
+            }
+
             if ("ADMIN".equals(userModel.getRole())) {
                 response.sendRedirect(request.getContextPath() + "/pages/Admindashboard.jsp");
             } else {
-                response.sendRedirect(request.getContextPath() + "/pages/home.jsp");
+                response.sendRedirect(request.getContextPath() + "/homeS");
             }
-        } else {
-            //pw wrong vayo vane
-            request.setAttribute("error", "incorrect id or pw");
-            request.getRequestDispatcher("/pages/login.jsp").forward(request, response);
         }
     }
 }
